@@ -1,109 +1,130 @@
 #include "Source.h"
 using namespace std;
-void feature::InData(ifstream& ifst) {
-	ifst >> director;
+
+void In(ifstream& ifst, feature_film& f) {
+	ifst >> f.director;
 }
-void feature::Out(ofstream& ofst) {
-	ofst << "It is feature film. Director is " << director << endl;
+void Out(ofstream& ofst, feature_film& f) {
+	ofst << "It is feature film. Director is " << f.director << endl;
 }
-void animation::InData(ifstream& ifst) {
+void In(ifstream& ifst, animation_film& a) {
 	int t;
 	ifst >> t;
 	switch (t)
 	{
 	case 1:
-		woc = DRAWN;
+		a.woc = DRAWN;
 		break;
 	case 2:
-		woc = DOLL;
+		a.woc = DOLL;
 		break;
 	case 3:
-		woc = STOP_MOTION;
+		a.woc = STOP_MOTION;
 		break;
 	}
 }
-void animation::Out(ofstream& ofst) {
-	switch (woc)
+void Out(ofstream& ofst, animation_film& a) {
+
+	switch (a.woc)
 	{
 	case 0:
-		//woc = DRAWN;
 		ofst << "It is animation film. It's way of creation is drawing." << endl;
 		break;
 	case 1:
-		//woc = DOLL;
 		ofst << "It is animation film. It's way of creation is using dolls" << endl;
 		break;
 	case 2:
-		//woc = STOP_MOTION;
 		ofst << "It is animation film. It's way of creation is stop motion" << endl;
 		break;
 	}
 }
-film* film::In(ifstream& ifst) {
-	film* fl;
+film* InFilm(ifstream& ifst) {
+	film* fl = new film;
+	feature_film* f;
+	animation_film* a;
 	int k = 0;
 	ifst >> k;
 	switch (k) {
 	case 1:
-		fl = new feature;
+		fl->key = feature;
+		f = new feature_film;
+		In(ifst, *f);
+		fl->obj = (void*)f;
 		break;
 	case 2:
-		fl = new animation;
+		fl->key = animation;
+		a = new animation_film;
+		In(ifst, *a);
+		fl->obj = (void*)a;
 		break;
 	default:
 		return 0;
 	}
-	fl->InData(ifst);
-	int i = 0;
+	ifst >> fl->country;
+	feature_film f1;
+
+	if (fl->key == feature) {
+		f1 = *(feature_film*)fl->obj;
+	}
 	return fl;
 }
-Node::Node(film* newpic)
-{
-	pic = newpic;
-	next = NULL;
+
+void OutFilm(ofstream& ofst, film& f) {
+	if (f.key == feature)
+	{
+		feature_film* pf;
+		pf = (feature_film*)(f.obj);
+		Out(ofst, *pf);
+	}
+	if (f.key == animation)
+	{
+		animation_film* pa;
+		pa = (animation_film*)f.obj;
+		Out(ofst, *pa);
+	}
+	ofst << "The picture was filmed in " << f.country << ".\n";
 }
-container::container()
-{
-	head = NULL;
-	head = NULL;
-	size = 0;
+
+void Clear(container* c) {
+	c->head = NULL;
+	c->curr = NULL;
+	c->size = 0;
 }
-void container::Clear() {
-	head = NULL;
-	curr = NULL;
-	size = 0;
-}
-void container::In(ifstream& ifst) {
+
+void InCont(ifstream& ifst, container* c) {
 	while (!ifst.eof()) {
-		Node* newNode;
-		newNode = new Node((film::In(ifst)));
-		if (head == NULL)
+
+		Node* newNode = new Node;
+		newNode->fl = InFilm(ifst);
+		//feature_film* f1 = (feature_film*)newNode->fl->obj;
+		if (c->head == NULL)
 		{
-			head = newNode;
-			size = 1;
+			c->head = newNode;
+			c->size = 1;
 		}
 		else
 		{
-			curr = head;
-			while (curr->next != NULL)
+			c->curr = c->head;
+			while (c->curr->next != NULL)
 			{
-				curr = curr->next;
+				c->curr = c->curr->next;
 			}
-			curr->next = newNode;
-			size++;
+			c->curr->next = newNode;
+			c->size++;
 		}
 	}
 }
-void container::Out(ofstream& ofst) {
-	ofst << "Container contents " << size
+void OutCont(ofstream& ofst, container* c) {
+	ofst << "Container contents " << c->size
 		<< " elements." << endl;
+
 	int i = 0;
-	curr = head;
-	while (curr != NULL)
+	c->curr = c->head;
+	while (c->curr != NULL)
 	{
 		ofst << i << ": ";
-		curr->pic->Out(ofst);
-		curr = curr->next;
+		OutFilm(ofst, *(c->curr->fl));
+		c->curr = c->curr->next;
 		i++;
 	}
 }
