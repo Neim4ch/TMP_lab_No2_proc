@@ -10,7 +10,7 @@ struct film {
 	type key;
 
 };
-
+//asd
 struct Node {
 	film* fl = NULL;
 	Node* next = NULL;
