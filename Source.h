@@ -1,44 +1,42 @@
 #pragma once
 #include <iostream>
 #include <fstream>
+
 using namespace std;
-class film {
-public:
-	static film* In(ifstream& ifst);
-	virtual void InData(ifstream& ifst) = 0;
-	virtual void Out(ofstream& ofst) = 0;
+
+enum type { animation, feature };
+struct film {
+	void* obj = NULL;
+	type key;
+
 };
-class Node {
-public:
-	film* pic;
-	Node* next;
-	Node(film* newfigure);
+
+struct Node {
+	film* fl = NULL;
+	Node* next = NULL;
 };
-class feature : public film {
-	string director;
-public:
-	void InData(ifstream& ifst);
-	void Out(ofstream& ofst);
-	feature() {}
+
+struct feature_film {
+	string director = "";
 };
-class animation : public film {
-	enum way { DRAWN, DOLL, STOP_MOTION };
+
+enum way { DRAWN, DOLL, STOP_MOTION };
+struct animation_film {
 	way woc;
-public:
-	void InData(ifstream& ifst);
-	void Out(ofstream& ofst);
-	animation() {}
 };
-class container {
 
-public:
-	Node* head;
-	Node* curr;
-	int size;
-
-	void In(ifstream& ifst);
-	void Out(ofstream& ofst);
-	void Clear();
-	container();
-	~container() { Clear(); }
+struct container {
+	int size = 0;
+	Node* head = NULL;
+	Node* curr = NULL;
 };
+
+void In(ifstream& ifst, feature_film& f);
+void Out(ofstream& ofst, feature_film& f);
+void In(ifstream& ifst, animation_film& a);
+void Out(ofstream& ofst, animation_film& a);
+film* InFilm(ifstream& ifst);
+film* OutFilm(ifstream& ifst);
+void Clear(container* c);
+void InCont(ifstream& ifst, container* c);
+void OutCont(ofstream& ofst, container* c);

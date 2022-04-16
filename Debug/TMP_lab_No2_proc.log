@@ -1,0 +1,15 @@
+﻿  Source.cpp
+C:\Users\bushd\source\repos\TMP_lab_No2_proc\TMP_lab_No2_proc\Source.cpp(30,3): error C2018: unknown character '0x40'
+C:\Users\bushd\source\repos\TMP_lab_No2_proc\TMP_lab_No2_proc\Source.cpp(30,4): error C2018: unknown character '0x40'
+C:\Users\bushd\source\repos\TMP_lab_No2_proc\TMP_lab_No2_proc\Source.cpp(30,24): error C2018: unknown character '0x40'
+C:\Users\bushd\source\repos\TMP_lab_No2_proc\TMP_lab_No2_proc\Source.cpp(30,25): error C2018: unknown character '0x40'
+C:\Users\bushd\source\repos\TMP_lab_No2_proc\TMP_lab_No2_proc\Source.cpp(30,27): error C2146: syntax error: missing ';' before identifier 'film'
+C:\Users\bushd\source\repos\TMP_lab_No2_proc\TMP_lab_No2_proc\Source.cpp(30,58): error C2601: 'InFilm': local function definitions are illegal
+C:\Users\bushd\source\repos\TMP_lab_No2_proc\TMP_lab_No2_proc\Source.cpp(28): message : this line contains a '{' which has not yet been matched
+C:\Users\bushd\source\repos\TMP_lab_No2_proc\TMP_lab_No2_proc\Source.cpp(44,3): error C2018: unknown character '0x40'
+C:\Users\bushd\source\repos\TMP_lab_No2_proc\TMP_lab_No2_proc\Source.cpp(44,4): error C2018: unknown character '0x40'
+C:\Users\bushd\source\repos\TMP_lab_No2_proc\TMP_lab_No2_proc\Source.cpp(44,23): error C2018: unknown character '0x40'
+C:\Users\bushd\source\repos\TMP_lab_No2_proc\TMP_lab_No2_proc\Source.cpp(44,24): error C2018: unknown character '0x40'
+C:\Users\bushd\source\repos\TMP_lab_No2_proc\TMP_lab_No2_proc\Source.cpp(30): fatal error C1075: '{': no matching token found
+  TMP_lab_No2_proc.cpp
+  Generating Code...
