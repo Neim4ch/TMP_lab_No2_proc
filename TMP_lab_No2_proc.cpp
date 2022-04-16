@@ -1,7 +1,5 @@
 // TMP_lab_No2_proc.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
-#include <iostream>
-#include <fstream>
 #include "Source.h"
 using namespace std;
 int main(int argc, char* argv[])
@@ -13,17 +11,20 @@ int main(int argc, char* argv[])
 			<< endl;
 		exit(1);
 	}
-	int kekwe = 1;
 	ifstream ifst(argv[1]);
 	ofstream ofst(argv[2]);
 	cout << "Start" << endl;
 	container c;
-	c.In(ifst);
+
+	string s1 = argv[1], s2 = argv[2];
+
+	InCont(ifst, &c);
 	ofst << "Filled container. " << endl;
-	c.Out(ofst);
-	c.Clear();
+	OutCont(ofst, &c);
+	OutFeature(ofst, &c);
+	Clear(&c);
 	ofst << "Empty container. " << endl;
-	c.Out(ofst);
+	OutCont(ofst, &c);
 	cout << "Stop" << endl;
 	return 0;
 }
